@@ -31,6 +31,8 @@
 - identique à la première partie avec java à la place de python.
 ## comparaison des tailles
 - à l'aide de la commande docker images, la comparaison entre le image python et celle java n'a pas de sens. Il faudrait refaire une image construite en un seul stage en java pour comparer. Alors il est probable que celle en un bloc aurait un "content size" plus grand.
+## .gitignore
+-j'ai tenté après la correction. Je sais à quoi sela sert, mais je ne sais jamais quoi mettre dedans.
 
 
 
