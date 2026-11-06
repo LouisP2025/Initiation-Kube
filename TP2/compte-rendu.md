@@ -6,3 +6,4 @@
 ## Déploiement : kubectl apply -f deployment.yaml
 ## trouver un moyen de tester
 - j'ai compris la démonstration : kubectl describe pod pour obtenir l'IP d'un pod précis, puis un curl sur cette IP
+- utilisation de la commande kubectl get pods pour avoir la liste des pods
