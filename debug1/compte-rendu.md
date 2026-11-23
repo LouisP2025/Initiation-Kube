@@ -3,7 +3,7 @@
 ## Déploiement
 - Manifest de l'énoncé enregistré dans *debug-lab-service.yaml*
 - *kubectl apply -f debug-lab-service.yaml*
-- *kubectl get pods -l app=mon-api* → 4 Pods en *Running* (2 alpha, 2 beta)
+- *kubectl get pods -l app=mon-api* donne bien 4 Pods en *Running* (2 alpha, 2 beta)
 
 ![délpoiement ok](captures/debug1(1).png)
 
@@ -31,6 +31,7 @@
 
 ![Boucle après correction](captures/debug1(3).png)
 
-## Remaque 
+## Remaques 
 
-J'ai bien cru que cela ne marchait encore pas, car en relançant aussitôt, j'avais encore des echecs. Mais j'ai repensé que les pods ettaient du temps à être relancé, et c'était bien çà le problème.
+- demandé à Claude la commande pour afficher uniquement les pods que je veux, kubectl *get pods -l app=mon-api*
+- J'ai bien cru que la correction ne fonctionnait pas car, en relançant aussitôt, j'avais encore des echecs. Mais j'ai repensé que les pods ettaient du temps à être relancé, et c'était bien çà le problème.
