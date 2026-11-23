@@ -1,0 +1,58 @@
+# ---------- StatefulSet : base PostgreSQL avec stockage persistant ----------
+apiVersion: apps/v1
+# On choisi un StatefulSet 
+kind: StatefulSet
+metadata:
+  name: postgres
+spec:
+  # Le service associé  est celui du TP 3
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      # On donne la même étiquette qu'au TP 3 
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:13
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: "admin"
+            - name: POSTGRES_PASSWORD
+              value: "password"
+            - name: POSTGRES_DB
+              value: "reviews"
+            - name: PGDATA
+              value: "/var/lib/postgresql/data/pgdata"
+          # On monte le volume sur le dossier des données PostgreSQL, l'adresse est dans la doc de l'image
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+  # Modèle de demande de stockage :
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+---
+# ---------- Service : inchangé par rapport au TP 3 ----------
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+spec:
+  selector:
+    app: postgres
+  ports:
+    - port: 5432
+      targetPort: 5432
