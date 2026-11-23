@@ -1,0 +1,19 @@
+# Expose l'interface web (frontend) sur Internet
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-ingress
+spec:
+  rules:
+  # Adresse publique de l'application 3 tiers
+  - host: reviews-lpellot.lab.sspcloud.fr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          # On envoie toutes les requêtes vont au Service frontend, port 80
+          service:
+            name: frontend
+            port:
+              number: 80

@@ -1,0 +1,18 @@
+apiVersion: v1
+# On choisi le type d'objet :
+kind: Service
+metadata:
+  # On donne un nom au Service : 
+  name: python-api
+spec:
+  # On choisi le type : ClusterIP 
+  type: ClusterIP
+  selector:
+  # on utilise la même app que dans le tp2
+    app: python-api
+  ports:
+    - name: http
+      # On ndique le port sur lequel on appelle le Service
+      port: 80
+      # On indique le port du conteneur vers lequel le trafic est redirigé
+      targetPort: 8000

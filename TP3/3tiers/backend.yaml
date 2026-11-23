@@ -1,0 +1,45 @@
+# ---------- Deployment : fait tourner l'API backend ----------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          # On va chercher l'image sur dockerHub
+          image: hugosmn5/backend-3-tier:1.1
+          # Connexion à la base
+          env:
+            - name: DB_USER
+              value: "admin"
+            - name: DB_PASS
+              value: "password"
+            - name: DB
+              value: "reviews"
+            # On indique le bon nom du service PostgreSQL
+            - name: DB_HOST
+              value: "postgres"
+
+---
+# ---------- Service : donne le nom "backend" à l'API dans le namespace ----------
+apiVersion: v1
+kind: Service
+metadata:
+  # On indique le nom que le frontend utilise pour appeler l'API
+  name: backend
+spec:
+  selector:
+    app: backend
+  ports:
+    - port: 5000
+      targetPort: 5000
+

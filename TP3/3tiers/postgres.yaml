@@ -1,0 +1,45 @@
+# ---------- Deployment : fait tourner la base PostgreSQL ----------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          # On va chercher l'image sur dockerHub
+          image: postgres:13
+          ports:
+            # Port indiqué dans l'énoncé
+            - containerPort: 5432
+          # Variables d'environnement lues par l'image au premier démarrage :
+          # elles créent l'utilisateur, son mot de passe et la base "reviews"
+          env:
+            - name: POSTGRES_USER
+              value: "admin"
+            - name: POSTGRES_PASSWORD
+              value: "password"
+            - name: POSTGRES_DB
+              value: "reviews"
+         
+---
+# ---------- Service : donne le nom "postgres" à la base dans le namespace ----------
+apiVersion: v1
+kind: Service
+metadata:
+  # Doit être le nom de DB_HOST dans le backend
+  name: postgres
+spec:
+  selector:
+    app: postgres
+  ports:
+    - port: 5432
+      targetPort: 5432

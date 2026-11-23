@@ -1,0 +1,22 @@
+# On indique la version de l'API
+apiVersion: networking.k8s.io/v1
+# On choisi le type d'objet : Ingress qui expose un Service sur une adresse web publique
+kind: Ingress
+metadata:
+  # On choisi le nom de l'Ingress
+  name: python-api-ingress
+spec:
+  rules:
+  # On indique une adresse publique (doit finir par .lab.sspcloud.fr et être unique)
+  - host: python-api-lpellot.lab.sspcloud.fr
+    http:
+      paths:
+      # On prend toutes les URL commençant par / 
+      - path: /
+        pathType: Prefix
+        backend:
+          # On les envoie au Service python-api, sur son port 80
+          service:
+            name: python-api
+            port:
+              number: 80

@@ -1,0 +1,35 @@
+# ---------- Deployment : fait tourner l'interface web ----------
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          # On va chercher l'image sur DockerHub
+          image: hugosmn5/frontend-3-tier:1.1
+          # Pas de variable d'environnement : le frontend appelle le backend par le nom de Service "backend"
+
+
+---
+# ---------- Service : donne le nom "frontend" à l'interface web ----------
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+spec:
+  selector:
+    app: frontend
+  ports:
+    - port: 80
+      # Port d'écoute de Flask dans le conteneur du frontend
+      targetPort: 5000
