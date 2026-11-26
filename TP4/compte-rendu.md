@@ -16,11 +16,11 @@
 ## Deuxième partie : emptyDir et filesystem en lecture seule
 
 - *readOnlyRootFilesystem: true* à été ajouté au conteneur de l'API Python
-- Constat : écriture impossible 
+- Constat : écriture impossible (voir démo du prof)
 - Ajout d'un volume *emptyDir* nommé *tmp*, monté sur */tmp*
 - Résultat : écriture possible dans */tmp*, mais le reste du disque reste en lecture seule
 
 **Commentaire**
-- C'est utile d'aoir le filesystem en lecture seule, car un attaquant ne peut rien modifier
-- Il saut indiquer quels fichiers sont accessibles en écriture
+- C'est une bonne pratique d'avoir le *filesystem* en lecture seule, car un attaquant ne peut rien modifier
+- On peut indiquer des fichiers sont accessibles en écriture à l'aide d'un volume *emptyDir*
 - les données de l'emptyDir disparaissent à la suppression du Pod
