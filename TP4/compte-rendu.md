@@ -12,3 +12,15 @@
 - *postgres-0* en Error : *initdb: directory exists but is not empty* 
 - Correction : variable *PGDATA* pointant vers un sous-dossier du volume, puis suppression du Pod en erreur pour qu'il soit recréé
 - Je ne sais pas trop comment j'ai supprimé ses lignes dans une manip et je ne suis pas retourné voir le template du cours ensuite...
+
+## Deuxième partie : emptyDir et filesystem en lecture seule
+
+- *readOnlyRootFilesystem: true* à été ajouté au conteneur de l'API Python
+- Constat : écriture impossible 
+- Ajout d'un volume *emptyDir* nommé *tmp*, monté sur */tmp*
+- Résultat : écriture possible dans */tmp*, mais le reste du disque reste en lecture seule
+
+**Commentaire**
+- C'est utile d'aoir le filesystem en lecture seule, car un attaquant ne peut rien modifier
+- Il saut indiquer quels fichiers sont accessibles en écriture
+- les données de l'emptyDir disparaissent à la suppression du Pod
