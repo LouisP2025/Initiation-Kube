@@ -1,0 +1,42 @@
+# Version de l'API Kubernetes
+apiVersion: apps/v1
+# Type d'objet
+kind: Deployment
+metadata:
+  name: python-api
+  labels:
+    app: python-api
+spec:
+  # Nombre de Pods
+  replicas: 3
+  selector:
+    matchLabels:
+      app: python-api
+  # Modèle utilisé pour fabriquer chaque Pod
+  template:
+    metadata:
+      # Étiquette posée sur chaque Pod
+      labels:
+        app: python-api
+    spec:
+      # conteneurs dans chaque Pod
+      containers:
+        - name: python-api
+          # Nouvelle version : contient la route /health
+          image: lpellot/python-api:2.0
+          ports:
+            - containerPort: 8000
+          # Readiness : le Pod est-il prêt à recevoir du trafic ?
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5   # attendre 5 s avant le premier test
+            periodSeconds: 5         # puis tester toutes les 5 s
+          # Liveness : le Pod est-il vivant ?
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10  # attendre 10 s avant le premier test
+            periodSeconds: 10        # puis tester toutes les 10 s
