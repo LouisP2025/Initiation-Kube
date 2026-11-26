@@ -1,0 +1,3 @@
+{{ .Values.appName }} déployé (release {{ .Release.Name }}).
+Service : {{ include "backend-app.fullname" . }}-{{ .Values.appName }}, port {{ .Values.service.port }}
+Logs    : kubectl logs deployment/{{ include "backend-app.fullname" . }}-{{ .Values.appName }}
