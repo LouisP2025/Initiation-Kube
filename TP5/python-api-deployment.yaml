@@ -23,7 +23,7 @@ spec:
       containers:
         - name: python-api
           # Nouvelle version : contient la route /health
-          image: lpellot/python-api:2.0
+          image: lpellot/python-api:3.0
           ports:
             - containerPort: 8000
           # Readiness : le Pod est-il prêt à recevoir du trafic ?
