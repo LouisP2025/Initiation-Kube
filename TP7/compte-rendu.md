@@ -37,7 +37,7 @@
 - *NOTES.txt* : remplacé par un message simple (nom du Service, commande pour les logs, fourni par Claude)
 
 ### 2.3 Validation et déploiement
-- *helm lint ./backend-app* → *0 chart(s) failed*
+- *helm lint ./backend-app* donne *0 chart(s) failed*
 - *helm template ma-release ./backend-app* : manifests générés conformes
 
 ![helm template](captures/Capture_tp7(1).png)
@@ -49,7 +49,7 @@
 ![helm install et logs](captures/Capture_tp7(2).png)
 
 ### Difficultés rencontrées
-- Très fastidieux de chercher les lignes à modifier
+- Très fastidieux de chercher les lignes à modifier. J'ai indiqué quelques erreurs, mais il y en a eu beaucoup !
 - *helm lint* : *NOTES.txt* utilisait des sections supprimées de *values.yaml* simplifié par Claude
 - *helm lint* : *mapping values are not allowed* dans *deployment.yaml* : faute de frappe dans le template, corrigée
 - Probes par défaut sur */* : remplacées par des probes TCP (vues en cours) pas pensé au premier coup, demandé à Claude.
